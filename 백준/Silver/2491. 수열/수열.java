@@ -19,30 +19,34 @@ public class Main {
 		
 		
 		ArrayList<Integer> result = new ArrayList<>(); //수열의 길이를 저장할 배열
-		int count = 1;		//수열의 길이 카운트
 		
-		// 연속해서 커지는 경우
+		int plusCnt = 1;	// 증가하는 수열의 길이
+		int minusCnt = 1;   // 감소하는 수열의 길
+		
+		
 		for(int i=0; i<N-1; i++) {
-			if(nums[i] <= nums[i+1]) {
-				count += 1;
-			}else {
-				result.add(count); 
-				count = 1;
+			   // 증가하는 수열 체크
+			   if(nums[i] <= nums[i+1]) {
+			       plusCnt += 1;
+			   } else {
+			       result.add(plusCnt);
+			       plusCnt = 1;
+			   }
+			   
+			   // 감소하는 수열 체크 
+			   if(nums[i] >= nums[i+1]) {
+			       minusCnt += 1;
+			   } else {
+			       result.add(minusCnt);
+			       minusCnt = 1;
+			   }
 			}
-		}
-		result.add(count);  
-	
-		//연속해서 작아지는 경우
-		count = 1;
-		for(int i=0; i<N-1; i++) {
-			if(nums[i] >= nums[i+1]) {
-				count += 1;
-			}else {
-				result.add(count); 
-				count = 1;
-			}
-		}
-		result.add(count);  
+			// 마지막 수열들 추가
+			result.add(plusCnt);
+			result.add(minusCnt);
+		
+			
+			
 		
 		// 최대 수열의 길이 구하기
 		int max = result.get(0);
